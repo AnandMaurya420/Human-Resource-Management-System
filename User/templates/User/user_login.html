@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <link rel="stylesheet" href="{% static 'User/css/login.css' %}">
+    <script src="{% static 'User/js/login.js' %}"></script>
+</head>
+<body>
+    <button id="themeToggle">🌞 Light Mode</button>
+
+  <div class="container">
+    <h2>User Login</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="links">
+      <a href="{% url 'register' %}">Create account</a>
+      <a href="/password-reset/">Forgot password?</a>
+    </div>
+
+    {% for field in form %}
+      {% for error in field.errors %}
+        <li class="error-messages">{{ error }}</li>
+      {% endfor %}
+    {% endfor %}
+  </div>
+
+
+<!--    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+</head>
+<body>
+  <form method="post">
+    <h2>Login</h2>
+    <input type="hidden" name="csrfmiddlewaretoken" value="EbssOFevDoQJ2dGvzZ9PI6bScCNLZV0KLHuxIyZ2k62DoRbLMFa2z3fUdVfLgVMl" />
+
+    <label for="id_username">Email:</label>
+    <input type="text" name="username" required id="id_username" autocomplete="username" />
+
+    <label for="id_password">Password:</label>
+    <input type="password" name="password" required id="id_password" autocomplete="current-password" />
+
+    <button type="submit">Login</button>
+
+    <div class="links">
+      <a href="/password-reset/">Forgot password?</a>
+      <a href="/register/">Create account</a>
+    </div>
+  </form>
+</body>
+</html>
+</body>
+</html> -->

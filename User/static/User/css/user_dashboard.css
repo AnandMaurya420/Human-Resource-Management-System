@@ -1,0 +1,32 @@
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .left {
+            font-size: 18px;
+        }
+
+        .navbar .right a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .navbar .right a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            padding: 20px;
+        }

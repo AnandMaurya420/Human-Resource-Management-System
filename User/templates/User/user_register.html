@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Register</title>
+    <link rel="stylesheet" href="{% static 'User/css/register.css' %}">
+</head>
+
+        <!-- <h2>Register</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Register</button>
+        </form>
+        <a href="{% url 'login' %}">Already have an account?</a>
+
+        {% if form.errors %}
+        <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %} -->
+
+<body>
+  <div class="container">
+    <h2>User Register</h2>
+    <form method="post">
+      <input type="hidden" name="csrfmiddlewaretoken" value="...">
+            {% csrf_token %}
+            {{ form.as_p }}
+      <!-- form fields here -->
+      <!-- (same as you shared above) -->
+               {% if form.errors %}
+        <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+      <button type="submit">Register</button>
+    </form>
+    <a href="/login/">Already have an account?</a>
+  </div>
+
+</body>
+</html>

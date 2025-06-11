@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Today's Attendance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Optional: Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .attendance-card {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 15px;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .attendance-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #0d6efd;
+        }
+        .attendance-item {
+            font-size: 1.1rem;
+            padding: 10px 0;
+        }
+        .attendance-item i {
+            margin-right: 10px;
+            color: #0d6efd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="attendance-card text-center">
+        <div class="attendance-title">
+            <i class="fas fa-calendar-check"></i> Today's Attendance
+        </div>
+
+        {% if today_status %}
+            <div class="attendance-item">
+                <i class="fas fa-calendar-day"></i> <strong>Date:</strong> {{ today_status.date }}
+            </div>
+            <div class="attendance-item">
+                <i class="fas fa-user-check"></i> <strong>Status:</strong> {{ today_status.status }}
+            </div>
+            <div class="attendance-item">
+                <i class="fas fa-sign-in-alt"></i> <strong>Check-In:</strong> {{ today_status.check_in|default:"--" }}
+            </div>
+            <div class="attendance-item">
+                <i class="fas fa-sign-out-alt"></i> <strong>Check-Out:</strong> {{ today_status.check_out|default:"--" }}
+            </div>
+            <!-- <div class="attendance-item">
+                <i class="fas fa-clock"></i> <strong>Total Hours:</strong> {{ today_status.total_hour|default:"--" }}
+            </div> -->
+        {% else %}
+            <div class="alert alert-warning mt-4">
+                No attendance record found for today.
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

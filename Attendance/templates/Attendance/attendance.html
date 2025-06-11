@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Attendance/css/attendance_history.css'%}">
+
+</head>
+<body>
+<!-- <h3>{{today_status.status}}</h3> -->
+<div class="container">
+    <div class="form-section mb-4">
+        <h3>📅 Filter Attendance by Date</h3>
+        <form method="GET" class="row g-3">
+            <div class="col-md-4">
+                <input type="date" name="date" class="form-control" value="{{ selected_date }}">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">🔍 Filter</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="form-section">
+        <h4 class="mb-3">Attendance Records</h4>
+        {% if page_obj.object_list %}
+            <table class="table table-bordered table-hover table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in page_obj.object_list %}
+                        <tr>
+                            <td>{{ record.date }}</td>
+                            <td>{{ record.check_in }}</td>
+                            <td>{{ record.check_out }}</td>
+                            <td>{{ record.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1{% if selected_date %}&date={{ selected_date }}{% endif %}">« First</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if selected_date %}&date={{ selected_date }}{% endif %}">‹ Prev</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item disabled">
+                        <span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                    </li>
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if selected_date %}&date={{ selected_date }}{% endif %}">Next ›</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if selected_date %}&date={{ selected_date }}{% endif %}">Last »</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% else %}
+            <div class="alert alert-warning mt-3">
+                😕 No attendance records found.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

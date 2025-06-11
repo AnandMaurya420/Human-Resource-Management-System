@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+
+<div class="container mt-4">
+    <h2>Review Leave Request</h2>
+    
+    <div class="card p-3">
+        <p><strong>Employee:</strong> {{ leave.user.get_full_name }}</p>
+        <p><strong>Leave Type:</strong> {{ leave.leave_type }}</p>
+        <p><strong>From:</strong> {{ leave.from_date }}</p>
+        <p><strong>To:</strong> {{ leave.to_date }}</p>
+        <p><strong>Total Days:</strong> {{ leave.total_days }}</p>
+        <p><strong>Reason:</strong> {{ leave.reason }}</p>
+        <p><strong>Status:</strong> {{ leave.status }}</p>
+    </div>
+
+    {% if leave.status == 'Pending' %}
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
+        <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+    </form>
+    {% else %}
+    <div class="alert alert-info mt-3">
+        This request has already been <strong>{{ leave.status }}</strong> by {{ leave.reviewed_by.get_full_name }} on {{ leave.approved_on|date:"M d, Y H:i" }}.
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

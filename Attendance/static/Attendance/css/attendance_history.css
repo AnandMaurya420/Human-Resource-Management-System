@@ -1,0 +1,47 @@
+
+        body {
+            background: #f7f9fc;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .container {
+            margin-top: 40px;
+        }
+        .form-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        /* .pagination a, .pagination span {
+            margin: 0 3px;
+        } */
+
+
+    @media (max-width: 600px) {
+      .top-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      th {
+        display: none;
+      }
+
+      td {
+        padding: 10px;
+        text-align: left;
+        position: relative;
+      }
+
+      td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #667eea;
+        display: block;
+        margin-bottom: 5px;
+      }
+    }

@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(120deg, #e6f0ff, #fdfbfb);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .top-bar {
+            background-color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+            border-bottom: 3px solid #0d6efd;
+        }
+
+        .clock-time {
+            font-weight: 500;
+            font-size: 1rem;
+            color: #0d6efd;
+        }
+
+        .logout-btn {
+            font-weight: 500;
+            border-radius: 25px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .logout-btn:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-pic {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #0d6efd;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+        }
+
+        .user-name {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #0d6efd;
+            margin-bottom: 5px;
+        }
+
+        .user-role {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+        .info-section {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #0d6efd;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #212529;
+        }
+
+        .edit-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .edit-button a {
+            border-radius: 25px;
+            padding: 0.75rem 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="clock-time">
+            <span id="clock"></span> | <span id="date"></span>
+        </div>
+        <a href="{% url 'logout' %}" class="btn btn-outline-danger logout-btn">Logout</a>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container mt-5">
+
+        <!-- Profile Header -->
+        <div class="profile-header">
+            {% if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}" class="profile-pic" alt="Profile Picture">
+            {% else %}
+                <img src="{% static 'images/default-profile.png' %}" class="profile-pic" alt="Default Picture">
+            {% endif %}
+            <h2 class="user-name">{{ user.first_name }} {{ user.last_name }}</h2>
+            <div class="user-role">{{ user.designation }} • {{ user.department }}</div>
+        </div>
+
+        <!-- Profile Info Two Columns -->
+        <div class="row info-section">
+            <div class="col-md-6 mb-3">
+                <div class="mb-2"><span class="info-label">First name:</span><br><span class="info-value">{{ user.first_name }}</span></div>
+                <div class="mb-2"><span class="info-label">Email:</span><br><span class="info-value">{{ user.email }}</span></div>
+                <div class="mb-2"><span class="info-label">Phone:</span><br><span class="info-value">{{ user.phone_number }}</span></div>
+                <div class="mb-2"><span class="info-label">Gender:</span><br><span class="info-value">{{ user.gender }}</span></div>
+                <div class="mb-2"><span class="info-label">DOB:</span><br><span class="info-value">{{ user.date_of_birth }}</span></div>
+                <div class="mb-2"><span class="info-label">Address:</span><br><span class="info-value">{{ user.address }}</span></div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="mb-2"><span class="info-label">Last name:</span><br><span class="info-value">{{ user.last_name }}</span></div>
+                <div class="mb-2"><span class="info-label">Employee ID:</span><br><span class="info-value">{{ user.employee_id }}</span></div>
+                <div class="mb-2"><span class="info-label">Joining Date:</span><br><span class="info-value">{{ user.joining_date }}</span></div>
+                <div class="mb-2"><span class="info-label">Department:</span><br><span class="info-value">{{ user.department }}</span></div>
+                <div class="mb-2"><span class="info-label">Designation:</span><br><span class="info-value">{{ user.designation }}</span></div>
+                <div class="mb-2"><span class="info-label">Manager:</span><br><span class="info-value">{{ user.manager }}</span></div>
+            </div>
+        </div>
+
+        <!-- Edit Button -->
+        <div class="edit-button">
+            <a href="{% url 'profile' %}" class="btn btn-primary btn-lg shadow-sm">✏️ Edit Profile</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS + Clock Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('en-IN', { hour12: true });
+            const date = now.toLocaleDateString('en-IN', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('clock').textContent = time;
+            document.getElementById('date').textContent = date;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
+</body>
+</html>

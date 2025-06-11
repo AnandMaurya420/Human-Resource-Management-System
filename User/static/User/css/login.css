@@ -1,0 +1,135 @@
+ * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+    }
+
+    body.light {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #333;
+    }
+
+    body.dark {
+      background: linear-gradient(135deg, #0f0f0f, #1f1f1f);
+      color: #f1f1f1;
+    }
+
+    .container {
+      background-color: var(--form-bg);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+      background-color: white;
+    }
+
+    body.dark .container {
+      background-color: #181818;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    body.light label {
+      color: #555;
+    }
+
+    body.dark label {
+      color: #ccc;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #fff;
+      color: #000;
+    }
+
+    body.dark input {
+      background-color: #2a2a2a;
+      color: #fff;
+      border: 1px solid #444;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #5a67d8;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .links a {
+      display: block;
+      color: #a3bffa;
+      text-decoration: none;
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    body.light .links a {
+      color: #ffffff;
+    }
+
+    .error-messages {
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      list-style: none;
+      text-align: center;
+    }
+
+    #themeToggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      background-color: #ffffff88;
+      backdrop-filter: blur(5px);
+    }
+
+    body.dark #themeToggle {
+      background-color: #2a2a2a88;
+      color: #fff;
+    }

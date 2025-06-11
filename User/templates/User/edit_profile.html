@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User-Profile-edit</title>
+    <link rel="stylesheet" href="{% static 'User/css/user_profile_edit.css' %}">
+</head>
+<body>
+ <div class="container">
+    <h2>Edit Profile</h2>
+    <form method="post">
+      <input type="hidden" name="csrfmiddlewaretoken" value="...">
+            {% csrf_token %}
+            {{ form.as_p }}
+      <!-- form fields here -->
+      <!-- (same as you shared above) -->
+               {% if form.errors %}
+        <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+      <button type="submit">save</button>
+    </form>
+    <a href="/login/">Already have an account?</a>
+  </div>
+</body>
+</html>
+
+
+<!-- <h1>Welcome, {{ user.first_name }}</h1>
+<p>Role: {{ user.role }}</p>
+
+{% if can_edit %}
+    <a href="{% url 'edit_dashboard' %}">Edit Dashboard</a>
+{% else %}
+    <p>You do not have permission to edit this dashboard.</p>
+{% endif %} -->
